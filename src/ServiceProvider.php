@@ -25,5 +25,8 @@ class ServiceProvider extends AddonServiceProvider
 
     public function bootAddon()
     {
+        $this->publishes([
+            __DIR__.'/../resources/views/forms/fields' => resource_path('views/vendor/statamic-variable-number-fieldtype/forms/fields'),
+        ], 'statamic-variable-number-fieldtype-views');
     }
 }
