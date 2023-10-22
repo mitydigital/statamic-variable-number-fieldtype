@@ -1,0 +1,58 @@
+{{ once }}
+<script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('variableNumberFieldtype', () => ({
+            init() {
+                // if we're using the alpine driver, the target needs to be the actual
+                // field's handle (i.e. the target passed to the component)
+                if (this.$el.dataset.js === 'alpine') {
+                    this.target = this.$el.dataset.target;
+                }
+
+                // try to set initial values from the last request
+                try {
+                    const init = JSON.parse(this.$el.dataset.init);
+
+                    if (init.option) {
+                        this.option = init.option;
+                    }
+                    if (init.custom) {
+                        this.option = 'other';
+                        this.custom = init.custom;
+                    }
+                    if (init.value) {
+                        this.$data[this.target] = init.value;
+                    }
+                } catch (e) {
+                }
+
+                // watch for changes with the "option:
+                this.$watch('option', (newValue, oldValue) => {
+                    if (this.option !== 'other') {
+                        // update the target to be the selected option
+                        this.$data[this.target] = this.option;
+                    } else {
+                        if (newValue !== oldValue && oldValue !== null) {
+                            this.custom = null; // reset the custom
+                        }
+                        this.$refs.custom.focus();
+                    }
+                });
+            },
+
+            updateOther() {
+                this.option = 'other'
+                this.$nextTick(() => {
+                    this.$data[this.target] = this.custom;
+                });
+            },
+
+            custom: null,
+            option: null,
+            target: 'value',
+
+            value: null
+        }))
+    });
+</script>
+{{ /once }}

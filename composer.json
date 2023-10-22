@@ -1,0 +1,54 @@
+{
+  "name": "mitydigital/statamic-variable-number-fieldtype",
+  "description": "A variable number fieldtype for integers and currency for public-facing Statamic forms.",
+  "license": "MIT",
+  "type": "statamic-addon",
+  "autoload": {
+    "psr-4": {
+      "MityDigital\\StatamicVariableNumberFieldtype\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "MityDigital\\StatamicVariableNumberFieldtype\\Tests\\": "tests"
+    }
+  },
+  "extra": {
+    "statamic": {
+      "name": "Variable Number Fieldtype for Statamic",
+      "description": "A variable number fieldtype for integers and currency for public-facing Statamic forms."
+    },
+    "laravel": {
+      "providers": [
+        "MityDigital\\StatamicVariableNumberFieldtype\\ServiceProvider"
+      ]
+    }
+  },
+  "require": {
+    "php": "^8.2",
+    "statamic/cms": "^4.25.0",
+    "ext-intl": "*"
+  },
+  "require-dev": {
+    "pestphp/pest": "^2.9",
+    "orchestra/testbench": "^8.5",
+    "laravel/pint": "^1.10",
+    "spatie/pest-plugin-test-time": "^2.0",
+    "pestphp/pest-plugin-laravel": "^2.1",
+    "spatie/laravel-ray": "^1.33"
+  },
+  "scripts": {
+    "pint": [
+      "./vendor/bin/pint"
+    ],
+    "test": [
+      "php -d memory_limit=-1 -d max_execution_time=0 ./vendor/bin/pest"
+    ]
+  },
+  "config": {
+    "allow-plugins": {
+      "pestphp/pest-plugin": true,
+      "pixelfear/composer-dist-plugin": true
+    }
+  }
+}

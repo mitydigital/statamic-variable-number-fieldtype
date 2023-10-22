@@ -1,0 +1,79 @@
+<div x-data="variableNumberFieldtype"  data-init="{{ init | to_json | entities }}" data-js="{{ js_driver }}" data-target="{{ handle }}">
+    {{ options }}
+    <div>
+        <label class="flex items-center">
+            <div class="w-6">
+                <input name="{{ handle }}_options"
+                       type="radio"
+                       value="{{ number }}"
+                       x-model="option">
+            </div>
+            <div>{{ display }}</div>
+        </label>
+    </div>
+    {{ /options  }}
+
+    {{ if allow_custom }}
+    <div>
+        {{ if custom_display === 'visible' }}
+            <div class="flex items-center">
+                <div class="w-6">
+                    <input id="{{ handle }}_options_other"
+                           name="{{ handle }}_options"
+                           x-on:change="updateOther"
+                           type="radio"
+                           value="other"
+                           x-model="option">
+                </div>
+                <label for="{{ handle }}_options_other">
+                    <span class="sr-only">{{
+                            'statamic-variable-number-fieldtype::fieldtype.components.options.other' | trans
+                        }}</span>
+
+                    <input @change="updateOther"
+                           @focus="updateOther"
+                           x-model.number="custom"
+                           x-ref="custom"
+                           :tabindex="option === 'other' ? null : -1"
+                           inputmode="tel"
+                           placeholder="{{ 'statamic-variable-number-fieldtype::fieldtype.components.custom.placeholder' | trans }}"
+                           min="{{ custom_min }}"
+                           max="{{ custom_max }}">
+                </label>
+            </div>
+        {{ else }}
+            <label class="flex items-center">
+                <div class="w-6">
+                    <input name="{{ handle }}_options"
+                           x-on:change="updateOther"
+                           type="radio"
+                           value="other"
+                           x-model="option">
+                </div>
+                <div>{{ 'statamic-variable-number-fieldtype::fieldtype.components.options.other' | trans }}</div>
+            </label>
+
+            <template x-if="option === 'other'">
+                <label class="mt-1 ml-6">
+                    <span class="sr-only">{{ 'statamic-variable-number-fieldtype::fieldtype.components.custom.label' | trans }}</span>
+                    <input x-on:change="updateOther"
+                           x-model.number="custom"
+                           x-ref="custom"
+                           inputmode="tel"
+                           placeholder="{{ 'statamic-variable-number-fieldtype::fieldtype.components.custom.placeholder' | trans }}"
+                           min="{{ custom_min }}"
+                           max="{{ custom_max }}">
+                </label>
+            </template>
+        {{ /if  }}
+    </div>
+    {{ /if }}
+
+    <input id="{{ handle }}"
+           type="hidden"
+           name="{{ handle }}"
+           value="{{ old ?? default}}"
+           x-ref="value"
+           {{ if js_driver }}{{ js_attributes }}{{ else }}x-model="value" {{ /if }}
+    {{ if validate|contains:required }}required{{ /if }}>
+</div>

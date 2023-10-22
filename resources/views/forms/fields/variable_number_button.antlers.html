@@ -1,0 +1,78 @@
+<div x-data="variableNumberFieldtype" data-init="{{ init | to_json | entities }}" data-js="{{ js_driver }}" data-target="{{ handle }}">
+    <div class="space-y-1">
+        {{ options }}
+            <button :class="{
+                       'border-red-500' : option === '{{ number }}'
+                   }"
+                   class="w-full flex items-center border rounded px-4 py-2"
+                   @click.prevent="option = '{{ number }}'">
+                <div>{{ display }}</div>
+            </button>
+        {{ /options  }}
+
+        {{ if allow_custom }}
+        {{ if custom_display === 'visible' }}
+        <div class="relative">
+            <button :class="{
+                        'border-red-500' : option === 'other'
+                    }"
+                    class="relative z-10 w-full flex items-center border rounded px-4 py-2"
+                    @click.prevent="updateOther">
+                <div class="opacity-0">
+                    {{ 'statamic-variable-number-fieldtype::fieldtype.components.custom.placeholder' | trans }}
+                </div>
+            </button>
+
+            <div class="absolute z-20 inset-0 px-4 py-2">
+                <span class="sr-only">{{
+                        'statamic-variable-number-fieldtype::fieldtype.components.options.other' | trans
+                    }}</span>
+
+                <input @change="updateOther"
+                       @focus="updateOther"
+                       x-model.number="custom"
+                       x-ref="custom"
+                       :tabindex="option === 'other' ? null : -1"
+                       inputmode="tel"
+                       placeholder="{{ 'statamic-variable-number-fieldtype::fieldtype.components.custom.placeholder' | trans }}"
+                       min="{{ custom_min }}"
+                       max="{{ custom_max }}">
+            </div>
+        </div>
+        {{ else }}
+            <button :class="{
+                       'border-red-500' : option === 'other'
+                   }"
+                   class="w-full flex items-center border rounded px-4 py-2"
+                    @click.prevent="updateOther">
+                <div>{{ 'statamic-variable-number-fieldtype::fieldtype.components.options.other' | trans }}</div>
+            </button>
+        {{ /if }}
+        {{ /if }}
+    </div>
+
+    {{ if allow_custom && custom_display !== 'visible' }}
+    <template x-if="option === 'other'">
+        <div>
+            <label class="mt-1">
+                <div>{{ 'statamic-variable-number-fieldtype::fieldtype.components.custom.label' | trans }}</div>
+                <input x-on:change="updateOther"
+                       x-model.number="custom"
+                       x-ref="custom"
+                       inputmode="tel"
+                       placeholder="{{ 'statamic-variable-number-fieldtype::fieldtype.components.custom.placeholder' | trans }}"
+                       min="{{ custom_min }}"
+                       max="{{ custom_max }}">
+            </label>
+        </div>
+    </template>
+    {{ /if }}
+
+    <input id="{{ handle }}"
+           type="hidden"
+           name="{{ handle }}"
+           value="{{ old ?? default}}"
+           x-ref="value"
+           {{ if js_driver }}{{ js_attributes }}{{ else }}x-model="value" {{ /if }}
+    {{ if validate|contains:required }}required{{ /if }}>
+</div>
