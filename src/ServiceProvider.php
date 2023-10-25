@@ -27,5 +27,9 @@ class ServiceProvider extends AddonServiceProvider
         $this->publishes([
             __DIR__.'/../resources/views/forms/fields' => resource_path('views/vendor/statamic-variable-number-fieldtype/forms/fields'),
         ], 'statamic-variable-number-fieldtype-views');
+
+        $this->publishes([
+            __DIR__.'/../resources/views/snippets/variable_number.antlers.html' => resource_path('views/vendor/statamic-variable-number-fieldtype/snippets/variable_number.antlers.html'),
+        ], 'statamic-variable-number-fieldtype-logic');
     }
 }
