@@ -1,4 +1,4 @@
-<div x-data="variableNumberFieldtype"  data-init="{{ init | to_json | entities }}" data-js="{{ js_driver }}" data-target="{{ handle }}">
+<div x-data="variableNumberFieldtype"  data-init="{{ init | to_json | entities }}" data-js="{{ js_driver }}" data-target-container="" data-target="{{ handle }}">
     {{ options }}
     <div>
         <label class="flex items-center">
@@ -36,7 +36,7 @@
                            x-ref="custom"
                            :tabindex="option === 'other' ? null : -1"
                            inputmode="tel"
-                           placeholder="{{ 'statamic-variable-number-fieldtype::fieldtype.components.custom.placeholder' | trans }}"
+                           placeholder="{{ placeholder }}"
                            min="{{ custom_min }}"
                            max="{{ custom_max }}">
                 </label>
@@ -60,7 +60,7 @@
                            x-model.number="custom"
                            x-ref="custom"
                            inputmode="tel"
-                           placeholder="{{ 'statamic-variable-number-fieldtype::fieldtype.components.custom.placeholder' | trans }}"
+                           placeholder="{{ placeholder }}"
                            min="{{ custom_min }}"
                            max="{{ custom_max }}">
                 </label>

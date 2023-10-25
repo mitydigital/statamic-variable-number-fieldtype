@@ -7,6 +7,10 @@
                 // field's handle (i.e. the target passed to the component)
                 if (this.$el.dataset.js === 'alpine') {
                     this.target = this.$el.dataset.target;
+
+                    if (this.$el.dataset.targetContainer) {
+                        this.targetContainer = this.$el.dataset.targetContainer;
+                    }
                 }
 
                 // try to set initial values from the last request
@@ -14,14 +18,14 @@
                     const init = JSON.parse(this.$el.dataset.init);
 
                     if (init.option) {
-                        this.option = init.option;
+                        this.option = '' + init.option;
                     }
                     if (init.custom) {
                         this.option = 'other';
                         this.custom = init.custom;
                     }
                     if (init.value) {
-                        this.$data[this.target] = init.value;
+                        this.updateTarget(init.value);
                     }
                 } catch (e) {
                 }
@@ -30,7 +34,7 @@
                 this.$watch('option', (newValue, oldValue) => {
                     if (this.option !== 'other') {
                         // update the target to be the selected option
-                        this.$data[this.target] = this.option;
+                        this.updateTarget(this.option);
                     } else {
                         if (newValue !== oldValue && oldValue !== null) {
                             this.custom = null; // reset the custom
@@ -43,13 +47,24 @@
             updateOther() {
                 this.option = 'other'
                 this.$nextTick(() => {
-                    this.$data[this.target] = this.custom;
+                    this.updateTarget(this.custom);
                 });
+            },
+
+            updateTarget(value) {
+                if(this.targetContainer) {
+                    this.$data[this.targetContainer][this.target] = value;
+                }
+                else {
+                    this.$data[this.target] = value;
+                }
             },
 
             custom: null,
             option: null,
+
             target: 'value',
+            targetContainer: null,
 
             value: null
         }))

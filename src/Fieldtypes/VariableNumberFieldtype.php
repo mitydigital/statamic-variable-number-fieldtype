@@ -49,7 +49,7 @@ class VariableNumberFieldtype extends Fieldtype
             }
             $newOptions = [];
 
-            foreach (explode(',', request()->get($this->field()->handle())) as $value) {
+            foreach (explode(',', request()->get('vn_'.$this->field()->handle())) as $value) {
                 if ($value = filter_var($value, $filter)) {
                     $newOptions[] = [
                         'id' => count($newOptions) + 1,
@@ -75,6 +75,12 @@ class VariableNumberFieldtype extends Fieldtype
         //
         // get the old value
         $old = old($this->field()->handle(), null);
+
+        // if the "get" param is the same as $old, then reset old (i.e. it is an initial load)
+        if (request()->get($this->field()->handle()) === $old) {
+            $old = null;
+        }
+
         $init = [
             'option' => null,
             'custom' => null,
@@ -99,6 +105,9 @@ class VariableNumberFieldtype extends Fieldtype
         }
 
         $extra['init'] = $init;
+
+        // get the placeholder
+        $extra['placeholder'] = $this->config('custom_placeholder', null) ?? __('statamic-variable-number-fieldtype::fieldtype.components.custom.placeholder');
 
         return $extra;
     }
@@ -140,14 +149,8 @@ class VariableNumberFieldtype extends Fieldtype
         return $value;
     }
 
-    public function augment($value)
-    {
-        dd('augment');
-    }
-
     protected function configFieldItems(): array
     {
-
         return [
             'options' => [
                 'mode' => 'grid',
@@ -232,6 +235,22 @@ class VariableNumberFieldtype extends Fieldtype
                 'validate' => [
                     'nullable',
                     'required_if:allow_custom,true',
+                ],
+
+                'if' => [
+                    'allow_custom' => 'equals true',
+                ],
+            ],
+
+            'custom_placeholder' => [
+                'type' => 'text',
+                'display' => __('statamic-variable-number-fieldtype::fieldtype.config.custom_placeholder.display'),
+                'instructions' => __('statamic-variable-number-fieldtype::fieldtype.config.custom_placeholder.instructions',[
+                    'default' => __('statamic-variable-number-fieldtype::fieldtype.components.custom.placeholder')
+                ]),
+
+                'validate' => [
+                    'nullable',
                 ],
 
                 'if' => [
@@ -334,7 +353,7 @@ class VariableNumberFieldtype extends Fieldtype
                 'type' => 'toggle',
                 'display' => __('statamic-variable-number-fieldtype::fieldtype.config.url_override.display'),
                 'instructions' => __('statamic-variable-number-fieldtype::fieldtype.config.url_override.instructions', [
-                    'example' => URL::to('my-form?handle=10,20,30'),
+                    'example' => URL::to('my-form?vn_handle=10,20,30'),
                 ]),
             ],
         ];

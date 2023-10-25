@@ -50,6 +50,11 @@ return [
             'instructions' => 'The maximum custom value allowed.',
         ],
 
+        'custom_placeholder' => [
+            'display' => 'Placeholder',
+            'instructions' => 'Optional for the custom number field.<br>When not provided, will default to the language setting of: "<strong>:default</strong>".',
+        ],
+
         'decimals' => [
             'display' => 'Decimals',
             'instructions' => 'The number of decimals to round numbers to.',
@@ -107,7 +112,7 @@ return [
             'inline_label' => 'Restrict to the defined numbers',
             'inline_label_when_true' => 'Numbers can be defined using URL parameters',
 
-            'instructions' => 'When enabled, providing a URL parameter of your field handle with a comma-delimited string will override the selectable Options with the URL-provided options. For example, to set as 10, 20 and 30, you could use:<br>:example',
+            'instructions' => 'When enabled, providing a URL parameter of your "vn_" plus your field handle with a comma-delimited string will override the selectable Options with the URL-provided options. For example, to set as 10, 20 and 30, you could use:<br>:example',
         ],
     ],
 
