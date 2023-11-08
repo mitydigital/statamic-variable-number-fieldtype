@@ -9,6 +9,7 @@ use MityDigital\StatamicVariableNumberFieldtype\ServiceProvider;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use Statamic\Console\Processes\Composer;
 use Statamic\Extend\Manifest;
+use Statamic\Facades\Blueprint;
 use Statamic\Providers\StatamicServiceProvider;
 use Statamic\Statamic;
 
@@ -59,6 +60,29 @@ abstract class TestCase extends OrchestraTestCase
     {
         parent::resolveApplicationConfiguration($app);
 
+        $configs = [
+            'forms',
+            'sites',
+        ];
+
+        foreach ($configs as $config) {
+            $app['config']->set(
+                "statamic.$config",
+                require(__DIR__."/../vendor/statamic/cms/config/{$config}.php")
+            );
+        }
+
+        // set the forms folder
+        $app['config']->set('statamic.forms.forms', __DIR__.'/__fixtures__/forms');
+
+        // configure to be an AU site
+        $app['config']->set('statamic.sites.sites.default.locale', 'en_AU');
+
+        Statamic::booted(function () {
+            Blueprint::setDirectory(__DIR__.'/__fixtures__/blueprints');
+        });
+
+        return;
         $configs = [
             'assets',
             'cp',

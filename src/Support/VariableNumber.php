@@ -20,6 +20,6 @@ class VariableNumber
 
     public function formatInteger($value): string
     {
-        return filter_var($value, FILTER_VALIDATE_INT);
+        return filter_var(round($value), FILTER_VALIDATE_INT);
     }
 }

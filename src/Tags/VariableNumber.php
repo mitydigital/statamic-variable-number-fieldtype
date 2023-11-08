@@ -28,9 +28,9 @@ class VariableNumber extends Tags
             $fields = $form->fields();
         }
 
-        if ($fields
-            ->filter(fn ($field) => (is_array($field) && $field['type'] === 'variable_number') ||
-                (is_object($field) && method_exists($field, 'type') && $field->type() === 'variable_number'))
+        // in the fields of the form, do we have a variable number field?
+        if ($fields->filter(fn ($field) => (is_array($field) && $field['type'] === 'variable_number') ||
+            (is_object($field) && method_exists($field, 'type') && $field->type() === 'variable_number'))
             ->count()) {
 
             $partial = app()->make(Partial::class);

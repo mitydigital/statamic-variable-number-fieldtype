@@ -1,0 +1,75 @@
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: name
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: Name
+              icon: text
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: email_address
+            field:
+              input_type: email
+              antlers: false
+              type: text
+              display: 'Email Address'
+              icon: text
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: variable_number
+            field:
+              options:
+                -
+                  id: qAAxUkJU
+                  number: 5
+                  default: false
+                -
+                  id: looz7tz9
+                  number: 10
+                  default: true
+                -
+                  id: looz7v1q
+                  number: 20
+                  default: false
+              allow_custom: false
+              custom_display: toggle
+              format: currency
+              currency: AUD
+              decimals: 2
+              layout: radio
+              url_override: false
+              type: variable_number
+              display: 'Variable Number'
+              icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M53.3 41.995c2.99-4.06 5.39-6.91 7.22-8.55 1.82-1.64 3.6-2.46 5.33-2.46 2.07 0 3.5.71 4.29 2.12.42.73.63 1.63.63 2.67s-.43 2.06-1.3 2.95-1.92 1.34-3.15 1.34c-.76 0-1.62-.29-2.58-.86-.96-.58-1.69-.86-2.18-.86-.97 0-1.9.5-2.78 1.49-.88.99-2.4 3.1-4.55 6.32l.75 3.94c.39 2.02.72 3.68.99 4.98.26 1.3.55 2.5.87 3.6.42 1.52.84 2.62 1.26 3.31s1.04 1.02 1.85 1.02c.74 0 1.63-.54 2.68-1.61.58-.58 1.46-1.64 2.64-3.19l1.65 1.14c-1.39 2.33-3.19 4.55-5.41 6.65-2.22 2.1-4.39 3.15-6.51 3.15-1.78 0-3.25-.74-4.4-2.21-.66-.79-1.23-1.86-1.73-3.23-.26-.71-.62-1.96-1.08-3.76s-.75-2.91-.88-3.33l-.55.94c-2.6 4.45-4.5 7.35-5.7 8.68-1.81 1.99-3.91 2.99-6.29 2.99-1.36 0-2.55-.47-3.56-1.4s-1.51-2.08-1.51-3.44c0-1.13.37-2.17 1.12-3.13s1.79-1.44 3.13-1.44c.81 0 1.81.29 3.01.87 1.19.58 1.97.87 2.34.87.81 0 1.51-.36 2.1-1.08.59-.72 1.75-2.5 3.48-5.36l1.57-2.59c-.26-1.1-.54-2.45-.85-4.05-.3-1.6-.61-3.24-.92-4.92l-.63-3.35c-.45-2.41-1.15-4-2.12-4.76-.55-.45-1.46-.67-2.71-.67-.13 0-.45.02-.94.06-.5.04-1 .09-1.49.14v-2.12c2.36-.29 4.95-.65 7.77-1.1 2.82-.45 4.7-.76 5.64-.94.79 1.05 1.44 2.32 1.95 3.81.51 1.49.9 3.08 1.16 4.76l.43 2.63-.04-.02z"/><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.9"><path d="M31.4 87.365h-4.67c-5.29 0-9.58-4.29-9.58-9.58v-18.2c0-5.29-4.29-9.58-9.58-9.58H3.25h4.67c5.29 0 9.58-4.29 9.58-9.58v-18.21c0-5.29 4.29-9.58 9.58-9.58h4.3M68.62 87.365h4.67c5.29 0 9.58-4.29 9.58-9.58v-18.2c0-5.29 4.29-9.58 9.58-9.58h4.3-4.67c-5.29 0-9.58-4.29-9.58-9.58v-18.21c0-5.29-4.29-9.58-9.58-9.58h-4.3" /></g></svg>'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: comments
+            field:
+              antlers: false
+              type: textarea
+              display: Comments
+              icon: textarea
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false

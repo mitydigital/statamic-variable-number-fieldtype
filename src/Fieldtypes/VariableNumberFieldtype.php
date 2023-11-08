@@ -99,15 +99,18 @@ class VariableNumberFieldtype extends Fieldtype
             if ($option = collect($extra['options'])->first(fn ($option) => $option['number'] == $old)) {
                 $init['option'] = $option['number'];
             } else {
-                // we didn't have a matching option, so must be the custom value
-                $init['custom'] = $old;
+                if ($this->config('allow_custom')) {
+                    // we didn't have a matching option, so must be the custom value
+                    $init['custom'] = $old;
+                }
             }
         }
 
         $extra['init'] = $init;
 
         // get the placeholder
-        $extra['placeholder'] = $this->config('custom_placeholder', null) ?? __('statamic-variable-number-fieldtype::fieldtype.components.custom.placeholder');
+        $extra['placeholder'] = $this->config('custom_placeholder',
+            null) ?? __('statamic-variable-number-fieldtype::fieldtype.components.custom.placeholder');
 
         return $extra;
     }
@@ -245,9 +248,10 @@ class VariableNumberFieldtype extends Fieldtype
             'custom_placeholder' => [
                 'type' => 'text',
                 'display' => __('statamic-variable-number-fieldtype::fieldtype.config.custom_placeholder.display'),
-                'instructions' => __('statamic-variable-number-fieldtype::fieldtype.config.custom_placeholder.instructions',[
-                    'default' => __('statamic-variable-number-fieldtype::fieldtype.components.custom.placeholder')
-                ]),
+                'instructions' => __('statamic-variable-number-fieldtype::fieldtype.config.custom_placeholder.instructions',
+                    [
+                        'default' => __('statamic-variable-number-fieldtype::fieldtype.components.custom.placeholder'),
+                    ]),
 
                 'validate' => [
                     'nullable',
