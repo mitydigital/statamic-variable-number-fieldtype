@@ -1,16 +1,27 @@
 # Variable Number Fieldtype
 
+<!-- statamic:hide -->
+
+![Statamic 4+](https://img.shields.io/badge/Statamic-4+-FF269E?style=for-the-badge&link=https://statamic.com)
+[![Variable Number Fieldtype for Statamic on Packagist](https://img.shields.io/packagist/v/mitydigital/statamic-variable-number-fieldtype?style=for-the-badge)](https://packagist.org/packages/mitydigital/statamic-variable-number-fieldtype/stats)
+
+---
+
+<!-- /statamic:hide -->
+
 > A variable number frontend fieldtype for Statamic Forms.
 
 ## Variable Number Fieldtype is a Commercial Addon.
 
 You can use it for free while in development, but requires a license to use on a live site.
 
-You will be able to buy a license from the Statamic Marketplace when it is released.
+Learn more or buy a license on
+the [Statamic Marketplace](https://statamic.com/addons/mity-digital/variable-number-fieldtype)!
 
 ## Documentation
 
-Documentation will be made available when released.
+See the [documentation](https://docs.mity.com.au/variable-number-fieldtype) for detailed installation, configuration and
+usage instructions.
 
 ## Testing
 
