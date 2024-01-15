@@ -32,18 +32,13 @@ class VariableNumberFieldtype extends Fieldtype
         };
     }
 
-    protected function getDefaulOptions(): array
-    {
-        return $this->config('options', []);
-    }
-
     public function extraRenderableFieldData(): array
     {
         //
         // create formatted options
         //
         $extra = [
-            'options' => $this->getDefaulOptions(),
+            'options' => $this->getOptions(),
         ];
 
         // if url overrides are enabled, should we update the options
@@ -118,6 +113,11 @@ class VariableNumberFieldtype extends Fieldtype
             null) ?? __('statamic-variable-number-fieldtype::fieldtype.components.custom.placeholder');
 
         return $extra;
+    }
+
+    protected function getOptions(): array
+    {
+        return $this->config('options', []);
     }
 
     protected function formatNumber($value): string
