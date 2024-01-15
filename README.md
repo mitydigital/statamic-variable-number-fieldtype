@@ -2,8 +2,8 @@
 
 <!-- statamic:hide -->
 
-![Statamic 4+](https://img.shields.io/badge/Statamic-4+-FF269E?style=for-the-badge&link=https://statamic.com)
-[![Variable Number Fieldtype for Statamic on Packagist](https://img.shields.io/packagist/v/mitydigital/statamic-variable-number-fieldtype?style=for-the-badge)](https://packagist.org/packages/mitydigital/statamic-variable-number-fieldtype/stats)
+![Statamic 4+](https://img.shields.io/badge/Statamic-4+-FF269E?style=for-the-badge&link=https://statamic.com)https://img.shields.io/packagist/v/mitydigital/statamic-variable-number-fieldtype?style=for-the-badge
+[![Variable Number Fieldtype for Statamic on Packagist]()](https://packagist.org/packages/mitydigital/statamic-variable-number-fieldtype/stats)
 
 ---
 

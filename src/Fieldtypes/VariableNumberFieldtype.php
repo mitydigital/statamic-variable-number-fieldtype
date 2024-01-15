@@ -32,13 +32,18 @@ class VariableNumberFieldtype extends Fieldtype
         };
     }
 
+    protected function getDefaulOptions(): array
+    {
+        return $this->config('options', []);
+    }
+
     public function extraRenderableFieldData(): array
     {
         //
         // create formatted options
         //
         $extra = [
-            'options' => $this->config('options', []),
+            'options' => $this->getDefaulOptions(),
         ];
 
         // if url overrides are enabled, should we update the options
