@@ -5,18 +5,19 @@ namespace MityDigital\StatamicVariableNumberFieldtype\Tests;
 use Facades\Statamic\Version;
 use Illuminate\Support\Facades\File;
 use MityDigital\StatamicVariableNumberFieldtype\ServiceProvider;
-use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use Statamic\Console\Processes\Composer;
-use Statamic\Extend\Manifest;
 use Statamic\Facades\Blueprint;
-use Statamic\Providers\StatamicServiceProvider;
+use Statamic\Facades\Site;
 use Statamic\Statamic;
+use Statamic\Testing\AddonTestCase;
 
-abstract class TestCase extends OrchestraTestCase
+abstract class TestCase extends AddonTestCase
 {
     protected $shouldFakeVersion = true;
 
-    protected function setUp(): void
+    protected string $addonServiceProvider = ServiceProvider::class;
+
+    protected function set2Up(): void
     {
         parent::setUp();
 
@@ -28,31 +29,21 @@ abstract class TestCase extends OrchestraTestCase
         }
     }
 
-    protected function getPackageProviders($app)
-    {
-        return [
-            StatamicServiceProvider::class,
-            ServiceProvider::class,
-        ];
-    }
-
-    protected function getPackageAliases($app)
-    {
-        return [
-            'Statamic' => Statamic::class,
-        ];
-    }
-
     protected function getEnvironmentSetUp($app)
     {
         parent::getEnvironmentSetUp($app);
 
-        $app->make(Manifest::class)->manifest = [
-            'mitydigital/statamic-variable-number-fieldtype' => [
-                'id' => 'mitydigital/statamic-variable-number-fieldtype',
-                'namespace' => 'MityDigital\\StatamicVariableNumberFieldtype',
+        config()->set('filesystems.disks', array_merge(
+            config('filesystems.disks'),
+            [
+                'fonts' => [
+                    'driver' => 'local',
+                    'root' => __DIR__.'/fonts',
+                    'url' => env('APP_URL').'/storage',
+                    'visibility' => 'public',
+                ],
             ],
-        ];
+        ));
     }
 
     protected function resolveApplicationConfiguration($app)
@@ -61,24 +52,29 @@ abstract class TestCase extends OrchestraTestCase
 
         $configs = [
             'forms',
-            'sites',
         ];
 
         foreach ($configs as $config) {
             $app['config']->set(
                 "statamic.$config",
-                require(__DIR__."/../vendor/statamic/cms/config/{$config}.php")
+                require (__DIR__."/../vendor/statamic/cms/config/{$config}.php")
             );
         }
 
         // set the forms folder
         $app['config']->set('statamic.forms.forms', __DIR__.'/__fixtures__/forms');
 
-        // configure to be an AU site
-        $app['config']->set('statamic.sites.sites.default.locale', 'en_AU');
-
         Statamic::booted(function () {
             Blueprint::setDirectory(__DIR__.'/__fixtures__/blueprints');
+
+            // configure to be an AU site
+            Site::setSites([
+                'default' => [
+                    'name' => config('app.name'),
+                    'locale' => 'en_AU',
+                    'url' => '/',
+                ],
+            ]);
         });
     }
 

@@ -3,6 +3,7 @@
 namespace MityDigital\StatamicVariableNumberFieldtype\Fieldtypes;
 
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Str;
 use MityDigital\StatamicVariableNumberFieldtype\Facades\VariableNumber;
 use Statamic\Facades\Folder;
 use Statamic\Fields\Fieldtype;
@@ -337,7 +338,7 @@ class VariableNumberFieldtype extends Fieldtype
 
                 'options' => collect(Folder::disk('resources')
                     ->getFilesRecursively('views'))
-                    ->map(fn ($view) => str_replace_first('views/', '', str_before($view, '.')))
+                    ->map(fn ($view) => Str::replaceFirst('views/', '', Str::before($view, '.')))
                     ->filter(fn ($view) => (
                         $view &&
                         ! str_starts_with($view, 'vendor/') &&
