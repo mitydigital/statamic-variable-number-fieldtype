@@ -2,10 +2,8 @@
 
 namespace MityDigital\StatamicVariableNumberFieldtype\Tests;
 
-use Facades\Statamic\Version;
 use Illuminate\Support\Facades\File;
 use MityDigital\StatamicVariableNumberFieldtype\ServiceProvider;
-use Statamic\Console\Processes\Composer;
 use Statamic\Facades\Blueprint;
 use Statamic\Facades\Site;
 use Statamic\Statamic;
@@ -17,33 +15,9 @@ abstract class TestCase extends AddonTestCase
 
     protected string $addonServiceProvider = ServiceProvider::class;
 
-    protected function set2Up(): void
-    {
-        parent::setUp();
-
-        $this->withoutVite();
-
-        if ($this->shouldFakeVersion) {
-            Version::shouldReceive('get')
-                ->andReturn(Composer::create(__DIR__.'/../')->installedVersion(Statamic::PACKAGE));
-        }
-    }
-
     protected function getEnvironmentSetUp($app)
     {
         parent::getEnvironmentSetUp($app);
-
-        config()->set('filesystems.disks', array_merge(
-            config('filesystems.disks'),
-            [
-                'fonts' => [
-                    'driver' => 'local',
-                    'root' => __DIR__.'/fonts',
-                    'url' => env('APP_URL').'/storage',
-                    'visibility' => 'public',
-                ],
-            ],
-        ));
     }
 
     protected function resolveApplicationConfiguration($app)
