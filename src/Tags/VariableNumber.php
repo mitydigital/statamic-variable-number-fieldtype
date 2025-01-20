@@ -2,6 +2,7 @@
 
 namespace MityDigital\StatamicVariableNumberFieldtype\Tags;
 
+use Statamic\Forms\FieldsVariable;
 use Statamic\Tags\Partial;
 use Statamic\Tags\Tags;
 
@@ -26,6 +27,10 @@ class VariableNumber extends Tags
 
             // set to the fields
             $fields = $form->fields();
+        }
+
+        if (get_class($fields) === FieldsVariable::class) {
+            $fields = collect($fields->extra());
         }
 
         // in the fields of the form, do we have a variable number field?
