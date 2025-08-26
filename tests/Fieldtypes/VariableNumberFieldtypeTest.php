@@ -217,7 +217,7 @@ it('correctly sets init data on re-post', function () {
     //
     // USE DEFAULT OPTIONS
     //
-    request()->setLaravelSession(session());
+    request()->setLaravelSession(app('session.store'));
     $this->withSession(['_old_input.'.$field->handle() => 5]);
 
     $extra = $field->fieldtype()->extraRenderableFieldData();
@@ -240,7 +240,7 @@ it('correctly sets init data on re-post', function () {
     });
     app()->instance('request', $request);
 
-    request()->setLaravelSession(session());
+    request()->setLaravelSession(app('session.store'));
     $this->withSession(['_old_input.'.$field->handle() => 3]);
 
     $extra = $field->fieldtype()->extraRenderableFieldData();
@@ -248,7 +248,7 @@ it('correctly sets init data on re-post', function () {
     expect($extra['init']['option'])->toBe(3.0);
 
     // attempt a custom value, but not have it configured to allow it
-    request()->setLaravelSession(session());
+    request()->setLaravelSession(app('session.store'));
     $this->withSession(['_old_input.'.$field->handle() => 5]);
 
     $extra = $field->fieldtype()->extraRenderableFieldData();
@@ -261,14 +261,13 @@ it('correctly sets init data on re-post', function () {
     $config['allow_custom'] = true;
     $field->setConfig($config);
 
-    request()->setLaravelSession(session());
+    request()->setLaravelSession(app('session.store'));
     $this->withSession(['_old_input.'.$field->handle() => 5]);
 
     $extra = $field->fieldtype()->extraRenderableFieldData();
 
     expect($extra['init']['option'])->toBeNull()
         ->and($extra['init']['custom'])->toBe(5);
-
 });
 
 it('correctly sets the placeholder', function () {
@@ -362,7 +361,7 @@ it('correctly returns an error message if part of a non-form blueprint', functio
     $blueprint = Blueprint::find('collections/pages/article');
 
     // set the parent
-    $blueprint->setParent(new Entry());
+    $blueprint->setParent(new Entry);
 
     // get the variable number
     $field = $blueprint->field('variable_number');

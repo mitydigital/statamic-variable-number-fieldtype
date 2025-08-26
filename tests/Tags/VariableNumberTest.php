@@ -6,7 +6,7 @@ use Statamic\Facades\Form;
 
 it('outputs a variable number partial with fields from the tag\'s context', function () {
     // create the tag
-    $tag = new VariableNumber();
+    $tag = new VariableNumber;
 
     // load fields from the form blueprint
     $blueprint = Blueprint::find('forms/has_variable_number');
@@ -22,7 +22,7 @@ it('outputs a variable number partial with fields from the tag\'s context', func
 
 it('outputs a variable number partial with form from the tag\'s params', function () {
     // create the tag
-    $tag = new VariableNumber();
+    $tag = new VariableNumber;
 
     // load form
     $form = Form::find('has_variable_number');
@@ -40,7 +40,7 @@ it('outputs a variable number partial with form from the tag\'s params', functio
 
 it('outputs nothing when the blueprint does not contain a variable number fieldtype', function () {
     // create the tag
-    $tag = new VariableNumber();
+    $tag = new VariableNumber;
 
     // load fields from the form blueprint
     $blueprint = Blueprint::find('forms/no_variable_number');
