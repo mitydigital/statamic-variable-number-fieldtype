@@ -217,7 +217,7 @@ class VariableNumberFieldtype extends Fieldtype
 
                 'if' => [
                     'allow_custom' => 'equals true',
-                    //'layout' => '=== radio',
+                    // 'layout' => '=== radio',
                 ],
             ],
 
